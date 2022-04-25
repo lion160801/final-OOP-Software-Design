@@ -1,5 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.service;
 
+import com.gmail.merikbest2015.ecommerce.domain.Gender;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.service.Impl.PerfumeServiceImpl;
 
@@ -17,7 +18,7 @@ public interface PerfumeService {
 
     List<Perfume> findByPerfumeGenderOrderByPriceDesc(String perfumeGender);
 
-    void saveProductInfoById(String perfumeTitle, String perfumer, Integer year, String country, String perfumeGender,
+    void saveProductInfoById(String perfumeTitle, String perfumer, Integer year, String country, Gender perfumeGender,
                              String fragranceTopNotes, String fragranceMiddleNotes, String fragranceBaseNotes, String description,
                              String filename, Integer price, String volume, String type, Long id);
 

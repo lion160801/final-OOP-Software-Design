@@ -38,9 +38,8 @@ public class Perfume {
     @Length(max = 255)
     private String country;
 
-    @NotBlank(message = "Fill in the input field")
-    @Length(max = 255)
-    private String perfumeGender;
+    @Enumerated(EnumType.STRING)
+    private Gender perfumeGender;
 
     @NotBlank(message = "Fill in the input field")
     @Length(max = 255)

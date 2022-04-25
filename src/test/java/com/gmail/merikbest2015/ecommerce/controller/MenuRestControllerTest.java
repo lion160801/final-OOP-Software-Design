@@ -2,6 +2,7 @@ package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gmail.merikbest2015.ecommerce.domain.Gender;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.dto.PerfumeSearchFilterDto;
 import com.gmail.merikbest2015.ecommerce.repository.PerfumeRepository;
@@ -54,7 +55,7 @@ class MenuRestControllerTest {
 
         Perfume perfume = new Perfume();
         perfume.setPerfumer("Gucci");
-        perfume.setPerfumeGender("женский");
+        perfume.setPerfumeGender(Gender.male);
 
         when(perfumeRepository.findByPerfumeGenderOrderByPriceDesc("женский"))
                 .thenReturn(Arrays.asList(perfume));
@@ -75,7 +76,7 @@ class MenuRestControllerTest {
 
         Perfume perfume = new Perfume();
         perfume.setPerfumer("Gucci");
-        perfume.setPerfumeGender("женский");
+        perfume.setPerfumeGender(Gender.male);
 
         when(perfumeRepository.findByPerfumerOrderByPriceDesc("Gucci"))
                 .thenReturn(Arrays.asList(perfume));

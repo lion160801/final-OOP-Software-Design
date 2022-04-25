@@ -180,13 +180,14 @@ class AddProduct extends Component {
                         <div className="form row mt-3">
                             <div className="col">
                                 <label>Gender: </label>
-                                <input
-                                    type="text"
+                                <select
                                     className={perfumeGenderError ? "form-control is-invalid" : "form-control"}
                                     name="perfumeGender"
                                     value={perfumeGender}
-                                    placeholder="Enter the gender"
-                                    onChange={this.handleInputChange}/>
+                                    onChange={this.handleInputChange}>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
                                 <div className="invalid-feedback">{perfumeGenderError}</div>
                             </div>
                             <div className="col">
