@@ -11,7 +11,7 @@ import {
     fetchPerfumes,
     fetchPerfumesByPerfumer,
     fetchPerfumesByGender,
-    fetchPerfumesByFilterParams
+    fetchPerfumesByFilterParams, fetchBrands
 } from "../../actions/perfume-actions";
 import "./MenuStyle.css";
 
@@ -82,7 +82,7 @@ class Menu extends Component {
                         <h5>Brand</h5>
                         <li className="active mb-2" id="homeSubmenu">
                             <Checkbox list={perfumer}
-                                      handleFilters={(filters) => this.handleFilters(filters, "perfumers")}/>
+                                      handleFilters={(filters) => this.handleFilters(filters, "brands")}/>
                         </li>
                         <h5>Gender</h5>
                         <li className="active mb-2">
@@ -110,15 +110,18 @@ Menu.propTypes = {
     fetchPerfumesByPerfumer: PropTypes.func.isRequired,
     fetchPerfumesByGender: PropTypes.func.isRequired,
     fetchPerfumesByFilterParams: PropTypes.func.isRequired,
-    perfumes: PropTypes.array.isRequired
+    perfumes: PropTypes.array.isRequired,
+    brands: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
     perfumes: state.perfume.perfumes,
+    brands: state.perfume.brands
 });
 
 export default connect(mapStateToProps, {
     fetchPerfumes,
+    fetchBrands,
     fetchPerfumesByPerfumer,
     fetchPerfumesByGender,
     fetchPerfumesByFilterParams

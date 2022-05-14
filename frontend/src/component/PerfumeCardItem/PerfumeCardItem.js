@@ -21,7 +21,7 @@ const PerfumeCardItem = ({perfume, colSize, link, btnName}) => {
                      src={IMG_URL + `${perfume.filename}`}/>
                 <div className="card-body text-center">
                     <h5>{perfume.perfumeTitle}</h5>
-                    <h6>{perfume.perfumer}</h6>
+                    <h6>{perfume.brandName}</h6>
                     <h6><span>${perfume.price}</span>.00</h6>
                 </div>
                 <div className="text-center align-items-end mb-3">

@@ -173,7 +173,7 @@ class Order extends Component {
                                                          className="rounded mx-auto w-50"/>
                                                     <div className="card-body text-center">
                                                         <h5>{perfume.perfumeTitle}</h5>
-                                                        <h6>{perfume.perfumer}</h6>
+                                                        <h6>{perfume.brandName}</h6>
                                                         <h6><span>$ {perfume.price}</span>.00</h6>
                                                     </div>
                                                 </div>

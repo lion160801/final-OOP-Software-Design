@@ -1,15 +1,18 @@
 package com.gmail.merikbest2015.ecommerce.service.Impl;
 
-import com.gmail.merikbest2015.ecommerce.domain.Gender;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.repository.PerfumeRepository;
 import com.gmail.merikbest2015.ecommerce.service.PerfumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
+@Transactional
 public class PerfumeServiceImpl implements PerfumeService {
 
     private final PerfumeRepository perfumeRepository;
@@ -29,27 +32,32 @@ public class PerfumeServiceImpl implements PerfumeService {
         return perfumeRepository.findAll();
     }
 
-    //TODO rewrite filter logic
+
     @Override
-    public List<Perfume> filter(List<String> perfumers, List<String> genders, List<Integer> prices) {
-        List<Perfume> perfumeList;
+    public List<Perfume> filter(List<String> brands, List<String> genders, List<Integer> prices) {
+        List<Perfume> perfumeList = new ArrayList<>();
 
         if (!prices.isEmpty()) {
-            perfumeList = perfumeRepository.findByPriceBetweenOrderByPriceDesc(prices.get(0), prices.get(1));
-        } else if (!perfumers.isEmpty() && !genders.isEmpty()) {
-            perfumeList = perfumeRepository.findByPerfumerInAndPerfumeGenderInOrderByPriceDesc(perfumers, genders);
-        } else if (!perfumers.isEmpty() || !genders.isEmpty()) {
-            perfumeList = perfumeRepository.findByPerfumerInOrPerfumeGenderInOrderByPriceDesc(perfumers, genders);
+            if (!brands.isEmpty() && !genders.isEmpty()){
+                perfumeList = perfumeRepository.findByPriceBetweenAndBrand_NameInAndPerfumeGenderInOrderByPriceDesc( prices.get(0), prices.get(1), brands, genders);
+            } else if (!brands.isEmpty() || !genders.isEmpty()) {
+                perfumeList = perfumeRepository.findByPriceBetweenAndBrand_NameInOrPerfumeGenderInOrderByPriceDesc(prices.get(0), prices.get(1), brands, genders );
+            } else {
+                perfumeList = perfumeRepository.findByPriceBetweenOrderByPriceDesc(prices.get(0), prices.get(1));
+            }
+        } else if (!brands.isEmpty() && !genders.isEmpty()) {
+            perfumeList = perfumeRepository.findByBrand_NameInAndPerfumeGenderInOrderByPriceDesc(brands, genders);
+        } else if (!brands.isEmpty() || !genders.isEmpty()) {
+            perfumeList = perfumeRepository.findByBrand_NameInOrPerfumeGenderInOrderByPriceDesc(brands, genders);
         } else {
             perfumeList = perfumeRepository.findAll();
         }
-
         return perfumeList;
     }
 
     @Override
     public List<Perfume> findByPerfumerOrderByPriceDesc(String perfumer) {
-        return perfumeRepository.findByPerfumerOrderByPriceDesc(perfumer);
+        return perfumeRepository.findByBrand_NameOrderByPriceDesc(perfumer);
     }
 
     @Override
@@ -59,7 +67,7 @@ public class PerfumeServiceImpl implements PerfumeService {
 
     @Override
     public void saveProductInfoById(String perfumeTitle, String perfumer, Integer year, String country,
-                                    Gender perfumeGender, String fragranceTopNotes, String fragranceMiddleNotes,
+                                    String perfumeGender, String fragranceTopNotes, String fragranceMiddleNotes,
                                     String fragranceBaseNotes, String description, String filename,
                                     Integer price, String volume, String type, Long id
     ) {

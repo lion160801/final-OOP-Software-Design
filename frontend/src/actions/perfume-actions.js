@@ -5,7 +5,7 @@ import {
     FETCH_PERFUME,
     FETCH_PERFUMES_BY_GENDER,
     FETCH_PERFUMES_BY_PERFUMER,
-    FETCH_PERFUMES_BY_FILTER_PARAMS
+    FETCH_PERFUMES_BY_FILTER_PARAMS, FETCH_BRANDS
 } from "../utils/constants/actions-types";
 import {API_BASE_URL} from "../utils/constants/url";
 
@@ -26,6 +26,16 @@ export const fetchPerfume = (id) => async (dispatch) => {
         payload: response.data
     })
 };
+
+export const fetchBrands = async (dispatch) =>{
+    const response = await axios.get(API_BASE_URL + "/brands");
+
+    dispatch({
+        type: FETCH_BRANDS,
+        payload: response.data
+    })
+
+}
 
 export const fetchPerfumesByGender = (gender) => async (dispatch) => {
     const response = await axios.post(API_BASE_URL + "/menu/gender", gender);
@@ -53,3 +63,4 @@ export const fetchPerfumesByFilterParams = (filter) => async (dispatch) => {
         payload: response.data
     })
 };
+

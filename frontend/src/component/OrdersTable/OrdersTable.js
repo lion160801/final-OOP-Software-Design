@@ -36,8 +36,8 @@ const OrdersTable = ({orders}) => {
                                 <th>
                                     {order.perfumeList.map((perfume) => {
                                         return (
-                                            <p key={perfume.id}>
-                                                <Link to={`/product/${perfume.id}`}>{perfume.perfumeTitle}</Link>
+                                            <p key={perfume.id}>Id товара:
+                                                <Link to={`/product/${perfume.id}`}>{perfume.id}</Link>
                                             </p>
                                         )
                                     })}

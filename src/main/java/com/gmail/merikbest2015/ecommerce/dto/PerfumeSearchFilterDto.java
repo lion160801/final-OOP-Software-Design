@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class PerfumeSearchFilterDto {
     List<Integer> prices;
-    List<String> perfumers;
+    List<String> brands;
     List<String> genders;
     String perfumeGender;
     String perfumer;

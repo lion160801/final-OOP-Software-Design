@@ -133,10 +133,11 @@ class AddProduct extends Component {
                             <div className="col">
                                 <label>Release year: </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     className={yearError ? "form-control is-invalid" : "form-control"}
                                     name="year"
                                     value={year}
+                                    min={0}
                                     placeholder="Enter the release year"
                                     onChange={this.handleInputChange}/>
                                 <div className="invalid-feedback">{yearError}</div>
@@ -168,10 +169,11 @@ class AddProduct extends Component {
                             <div className="col">
                                 <label>Volume: </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     className={volumeError ? "form-control is-invalid" : "form-control"}
                                     name="volume"
                                     value={volume}
+                                    min={0}
                                     placeholder="Enter the volume"
                                     onChange={this.handleInputChange}/>
                                 <div className="invalid-feedback">{volumeError}</div>
@@ -181,12 +183,14 @@ class AddProduct extends Component {
                             <div className="col">
                                 <label>Gender: </label>
                                 <select
+                                    type="text"
                                     className={perfumeGenderError ? "form-control is-invalid" : "form-control"}
                                     name="perfumeGender"
                                     value={perfumeGender}
+                                    placeholder="Enter the gender"
                                     onChange={this.handleInputChange}>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
+                                    <option value='Male'>Male</option>
+                                    <option value='Female'>Female</option>
                                 </select>
                                 <div className="invalid-feedback">{perfumeGenderError}</div>
                             </div>
@@ -230,10 +234,11 @@ class AddProduct extends Component {
                             <div className="col">
                                 <label>Price: </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     className={priceError ? "form-control is-invalid" : "form-control"}
                                     name="price"
                                     value={price}
+                                    min={0}
                                     placeholder="Enter the price"
                                     onChange={this.handleInputChange}/>
                                 <div className="invalid-feedback">{priceError}</div>

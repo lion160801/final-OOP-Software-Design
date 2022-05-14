@@ -6,6 +6,7 @@ import com.gmail.merikbest2015.ecommerce.service.Impl.OrderServiceImpl;
 
 import java.util.List;
 
+
 public interface OrderService {
 
     List<Order> findAll();

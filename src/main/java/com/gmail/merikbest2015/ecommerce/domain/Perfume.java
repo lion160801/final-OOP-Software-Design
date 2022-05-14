@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
 @Entity
 @Getter
 @Setter
@@ -38,8 +37,9 @@ public class Perfume {
     @Length(max = 255)
     private String country;
 
-    @Enumerated(EnumType.STRING)
-    private Gender perfumeGender;
+    @NotBlank(message = "Fill in the input field")
+    @Length(max = 255)
+    private String perfumeGender;
 
     @NotBlank(message = "Fill in the input field")
     @Length(max = 255)
@@ -70,4 +70,7 @@ public class Perfume {
 
     @OneToMany
     private List<Review> reviews;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Brand brand;
 }

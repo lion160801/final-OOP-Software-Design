@@ -1,4 +1,15 @@
-const perfumer = [
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {
+    fetchBrands,
+    fetchPerfumes, fetchPerfumesByFilterParams,
+    fetchPerfumesByGender,
+    fetchPerfumesByPerfumer
+} from "../../actions/perfume-actions";
+
+const check = fetchBrands();
+
+const perfumer =  [
     {"name": "Burberry"},
     {"name": "Bvlgari"},
     {"name": "Calvin Klein"},

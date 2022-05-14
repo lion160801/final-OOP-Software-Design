@@ -17,7 +17,6 @@ class Perfume extends Component {
 
     componentDidMount() {
         this.props.fetchPerfume(this.props.match.params.id);
-
         window.scrollTo(0, 0);
     }
 
@@ -48,11 +47,15 @@ class Perfume extends Component {
         });
     };
 
+
     render() {
+
         const {author, message} = this.state;
         const {perfume, reviews} = this.props;
         const {authorError, messageError} = this.props.errors;
+        console.log(perfume);
 
+        const brand = perfume.brandName;
         return (
             <div className="container mt-5 pb-5">
                 <div className="row">
@@ -63,7 +66,7 @@ class Perfume extends Component {
                     </div>
                     <div className="col-md-7">
                         <h2>{perfume.perfumeTitle}</h2>
-                        <h3>{perfume.perfumer}</h3>
+                        <h3>{brand}</h3>
                         <p>Product code: <span>{perfume.id}</span></p>
                         <p style={{color: "#54C0A1"}}>In Stock</p>
                         <div className="row ml-1">
@@ -83,7 +86,7 @@ class Perfume extends Component {
                             </tr>
                             <tr>
                                 <td>Brand:</td>
-                                <td>{perfume.perfumer}</td>
+                                <td>{brand}</td>
                             </tr>
                             <tr>
                                 <td>Perfume type:</td>
@@ -192,7 +195,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchPerfume: (id) => dispatch(fetchPerfume(id)),
         addToCart: (id, history) => dispatch(addToCart(id, history)),
         addReviewToPerfume: (data) => dispatch(addReviewToPerfume(data)),
-    }
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Perfume);

@@ -1,6 +1,5 @@
-package com.gmail.merikbest2015.ecommerce.controller.user;
+package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.gmail.merikbest2015.ecommerce.controller.error.ControllerUtils;
 import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.dto.CaptchaResponseDto;
 import com.gmail.merikbest2015.ecommerce.service.UserService;

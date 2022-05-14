@@ -1,9 +1,10 @@
-package com.gmail.merikbest2015.ecommerce.controller.admin;
+package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.gmail.merikbest2015.ecommerce.controller.error.ControllerUtils;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.domain.User;
+import com.gmail.merikbest2015.ecommerce.dto.domaindto.UserDto;
+import com.gmail.merikbest2015.ecommerce.dto.mapper.Mapper;
 import com.gmail.merikbest2015.ecommerce.service.OrderService;
 import com.gmail.merikbest2015.ecommerce.service.PerfumeService;
 import com.gmail.merikbest2015.ecommerce.service.UserService;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -38,11 +40,14 @@ public class AdminRestController {
 
     private final OrderService orderService;
 
+    private final Mapper mapper;
+
     @Autowired
-    public AdminRestController(UserService userService, PerfumeService perfumeService, OrderService orderService) {
+    public AdminRestController(UserService userService, PerfumeService perfumeService, OrderService orderService, Mapper mapper) {
         this.userService = userService;
         this.perfumeService = perfumeService;
         this.orderService = orderService;
+        this.mapper = mapper;
     }
 
     @PostMapping("/admin/add")
@@ -103,8 +108,9 @@ public class AdminRestController {
     @GetMapping("/admin/user/all")
     public ResponseEntity<?> getAllUsers() {
         List<User> users = userService.findAll();
+        List<UserDto> userDtoList = users.stream().map(p -> mapper.userToUserDto(p)).collect(Collectors.toList());
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(userDtoList, HttpStatus.OK);
     }
 
     @PutMapping("/admin/user/edit")

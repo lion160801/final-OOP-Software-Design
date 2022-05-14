@@ -48,7 +48,7 @@ class Cart extends Component {
                                                 </div>
                                                 <div className="col-6">
                                                     <div className="card-body">
-                                                        <h4 className="card-title">{perfume.perfumer + " " + perfume.perfumeTitle}</h4>
+                                                        <h4 className="card-title">{perfume.brandName + " " + perfume.perfumeTitle}</h4>
                                                         <p className="card-text">{perfume.type}</p>
                                                         <p className="card-text"><span>{perfume.volume}</span> ml.</p>
                                                     </div>

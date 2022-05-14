@@ -8,6 +8,7 @@ import com.gmail.merikbest2015.ecommerce.service.Impl.UserServiceImpl;
 import java.util.List;
 import java.util.Map;
 
+
 public interface UserService {
 
     User getOne(Long id);

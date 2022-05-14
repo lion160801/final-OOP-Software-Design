@@ -1,9 +1,11 @@
-package com.gmail.merikbest2015.ecommerce.controller.user;
+package com.gmail.merikbest2015.ecommerce.controller;
 
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.dto.AuthenticationRequestDTO;
+import com.gmail.merikbest2015.ecommerce.dto.mapper.Mapper;
 import com.gmail.merikbest2015.ecommerce.dto.PasswordResetDto;
+import com.gmail.merikbest2015.ecommerce.dto.domaindto.PerfumeDto;
 import com.gmail.merikbest2015.ecommerce.security.JwtProvider;
 import com.gmail.merikbest2015.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/rest")
@@ -32,11 +35,14 @@ public class AuthenticationRestController {
 
     private final JwtProvider jwtProvider;
 
+    private final Mapper mapper;
+
     @Autowired
-    public AuthenticationRestController(AuthenticationManager authenticationManager, UserService userService, JwtProvider jwtProvider) {
+    public AuthenticationRestController(AuthenticationManager authenticationManager, UserService userService, JwtProvider jwtProvider, Mapper mapper) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.jwtProvider = jwtProvider;
+        this.mapper = mapper;
     }
 
     @PostMapping("/login")
@@ -49,11 +55,13 @@ public class AuthenticationRestController {
             String token = jwtProvider.createToken(request.getEmail(), userRole);
             List<Perfume> perfumeList = user.getPerfumeList();
 
+            List<PerfumeDto> perfumes = perfumeList.stream().map(p -> mapper.perfumeToPerFumeDto(p)).collect(Collectors.toList());
+
             Map<Object, Object> response = new HashMap<>();
             response.put("email", request.getEmail());
             response.put("token", token);
             response.put("userRole", userRole);
-            response.put("perfumeList", perfumeList);
+            response.put("perfumeList", perfumes);
 
             return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -62,6 +70,13 @@ public class AuthenticationRestController {
         }
     }
 
+    /**
+     * Send password reset code to user email.
+     * URL request {"/forgot"}, method POST.
+     *
+     * @param passwordReset data transfer object with user email.
+     * @return ResponseEntity with HTTP response: status code, headers, and body.
+     */
     @PostMapping("/forgot")
     public ResponseEntity<?> forgotPassword(@RequestBody PasswordResetDto passwordReset) {
         boolean forgotPassword = userService.sendPasswordResetCode(passwordReset.getEmail());
@@ -73,6 +88,13 @@ public class AuthenticationRestController {
         return new ResponseEntity<>("Reset password code is send to your E-mail", HttpStatus.OK);
     }
 
+    /**
+     * Get password reset code from email.
+     * URL request {"/reset/{code}"}, method GET.
+     *
+     * @param code code from email.
+     * @return ResponseEntity with HTTP response: status code, headers, and body.
+     */
     @GetMapping("/reset/{code}")
     public ResponseEntity<?> getPasswordResetCode(@PathVariable String code) {
         User user = userService.findByPasswordResetCode(code);
@@ -84,6 +106,13 @@ public class AuthenticationRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    /**
+     * Reset user password.
+     * URL request {"/reset"}, method POST.
+     *
+     * @param passwordReset data transfer object with user email and password.
+     * @return ResponseEntity with HTTP response: status code, headers, and body.
+     */
     @PostMapping("/reset")
     public ResponseEntity<?> passwordReset(@RequestBody PasswordResetDto passwordReset) {
         Map<String, String> errors = new HashMap<>();
