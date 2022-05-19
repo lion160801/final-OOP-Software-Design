@@ -19,6 +19,7 @@ class Cart extends Component {
         const perfume = this.props.cartItems.find((perfume) => perfume.id === perfumeId);
 
         this.props.removeFromCart(perfume);
+        window.location.reload();
     };
 
     render() {
@@ -32,7 +33,7 @@ class Cart extends Component {
                     <div>
                         {cartItems.length === 0 ?
                             <div style={{textAlign: "center"}}>
-                                <h2>Cart is empty</h2>
+                                <h2>Không có sản phẩm trong giỏ</h2>
                             </div> :
                             <div>
                                 <p className="h4 mb-4 text-center">
@@ -58,7 +59,7 @@ class Cart extends Component {
                                                         <h5 className="card-title"><span>$ {perfume.price}</span></h5>
                                                         <button className="btn btn-warning mb-2"
                                                                 onClick={() => this.deleteFromCart(perfume.id)}>
-                                                            <FontAwesomeIcon className="mr-2" icon={faMinusSquare}/> Remove
+                                                            <FontAwesomeIcon className="mr-2" icon={faMinusSquare}/> Xoá
                                                         </button>
                                                     </div>
                                                 </div>
@@ -75,7 +76,7 @@ class Cart extends Component {
                                         <div className="form-row">
                                             <Link to={"/order"}>
                                                 <button className="btn btn-success">
-                                                    <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/> Checkout
+                                                    <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/> Đặt hàng
                                                 </button>
                                             </Link>
                                         </div>

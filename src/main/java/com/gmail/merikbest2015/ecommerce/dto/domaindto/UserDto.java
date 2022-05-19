@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class UserDto {
 
     private boolean active;
 
-    private List<PerfumeDto> perfumeList;
+    private List<PerfumeDto> perfumeList = new ArrayList<>();
 
     private String activationCode;
 

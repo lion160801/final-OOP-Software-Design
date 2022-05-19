@@ -21,13 +21,13 @@ class UserList extends Component {
             <div>
                 <AccountNavbar/>
                 <div className="container mt-5">
-                    <h4><FontAwesomeIcon className="ml-2 mr-2" icon={faUsers}/> List of all users</h4>
+                    <h4><FontAwesomeIcon className="ml-2 mr-2" icon={faUsers}/> Danh sách người dùng</h4>
                     <table className="table mt-4">
                         <thead>
                         <tr>
-                            <th scope="col">Name</th>
+                            <th scope="col">Tên</th>
                             <th scope="col">E-mail</th>
-                            <th scope="col">Role</th>
+                            <th scope="col">Vai trò</th>
                             <th scope="col"></th>
                         </tr>
                         </thead>
@@ -44,7 +44,7 @@ class UserList extends Component {
                                             )
                                         })}
                                     <th>
-                                        <Link to={`/admin/user/${user.id}`}>Edit</Link>
+                                        <Link to={`/admin/user/${user.id}`}>Sửa</Link>
                                     </th>
                                 </tr>
                             );

@@ -26,17 +26,18 @@ class Menu extends Component {
 
     componentDidMount() {
         const perfumeData = this.props.location.state.id;
-
-        if (perfumeData === "female" || perfumeData === "male") {
+        this.props.fetchBrands();
+        if (perfumeData === "nữ" || perfumeData === "nam") {
             this.props.fetchPerfumesByGender({perfumeGender: perfumeData});
             window.scrollTo(0, 0);
         } else if (perfumeData === "all") {
             this.props.fetchPerfumes();
             window.scrollTo(0, 0);
         } else if (perfumeData) {
-            this.props.fetchPerfumesByPerfumer({perfumer: perfumeData});
+            this.props.fetchPerfumesByPerfumer({brand: perfumeData});
             window.scrollTo(0, 0);
         }
+
     }
 
     getProducts = (variables) => {
@@ -71,6 +72,11 @@ class Menu extends Component {
 
     render() {
         const {perfumes} = this.props;
+        const {brands} = this.props;
+        const brandList = [];
+        for (let b of brands) {
+            brandList.push({"name": b.name})
+        }
 
         return (
             <div className="container d-flex">
@@ -79,17 +85,17 @@ class Menu extends Component {
                         <h3>Perfumes</h3>
                     </div>
                     <ul className="list-unstyled components">
-                        <h5>Brand</h5>
+                        <h5>Thương hiệu</h5>
                         <li className="active mb-2" id="homeSubmenu">
-                            <Checkbox list={perfumer}
+                            <Checkbox list={brandList}
                                       handleFilters={(filters) => this.handleFilters(filters, "brands")}/>
                         </li>
-                        <h5>Gender</h5>
+                        <h5>Giới tính</h5>
                         <li className="active mb-2">
                             <Checkbox list={gender}
                                       handleFilters={(filters) => this.handleFilters(filters, "genders")}/>
                         </li>
-                        <h5>Price</h5>
+                        <h5>Giá</h5>
                         <li className="active mb-2">
                             <CheckboxRadio list={price}
                                            handleFilters={(filters) => this.handleFilters(filters, "prices")}/>
@@ -97,9 +103,9 @@ class Menu extends Component {
                     </ul>
                 </nav>
                 <Route exact component={() => <MenuCards data={perfumes} itemsPerPage={16} searchByData={[
-                    {label: 'Brand', value: 'perfumer'},
-                    {label: 'Perfume title', value: 'perfumeTitle'},
-                    {label: 'Manufacturer country', value: 'country'}]}/>}/>
+                    {label: 'Thương hiệu', value: 'brandName'},
+                    {label: 'Tên', value: 'perfumeTitle'},
+                    {label: 'Nước', value: 'country'}]}/>}/>
             </div>
         );
     }
@@ -107,6 +113,7 @@ class Menu extends Component {
 
 Menu.propTypes = {
     fetchPerfumes: PropTypes.func.isRequired,
+    fetchBrands: PropTypes.func.isRequired,
     fetchPerfumesByPerfumer: PropTypes.func.isRequired,
     fetchPerfumesByGender: PropTypes.func.isRequired,
     fetchPerfumesByFilterParams: PropTypes.func.isRequired,
@@ -116,7 +123,7 @@ Menu.propTypes = {
 
 const mapStateToProps = (state) => ({
     perfumes: state.perfume.perfumes,
-    brands: state.perfume.brands
+    brands: state.brand.brands
 });
 
 export default connect(mapStateToProps, {

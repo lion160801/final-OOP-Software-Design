@@ -70,31 +70,17 @@ public class AuthenticationRestController {
         }
     }
 
-    /**
-     * Send password reset code to user email.
-     * URL request {"/forgot"}, method POST.
-     *
-     * @param passwordReset data transfer object with user email.
-     * @return ResponseEntity with HTTP response: status code, headers, and body.
-     */
     @PostMapping("/forgot")
     public ResponseEntity<?> forgotPassword(@RequestBody PasswordResetDto passwordReset) {
         boolean forgotPassword = userService.sendPasswordResetCode(passwordReset.getEmail());
 
         if (!forgotPassword) {
-            return new ResponseEntity<>("Email not found", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Không tìm thấy email", HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>("Reset password code is send to your E-mail", HttpStatus.OK);
+        return new ResponseEntity<>("Kiểm tra email để đặt lại mật khẩu", HttpStatus.OK);
     }
 
-    /**
-     * Get password reset code from email.
-     * URL request {"/reset/{code}"}, method GET.
-     *
-     * @param code code from email.
-     * @return ResponseEntity with HTTP response: status code, headers, and body.
-     */
     @GetMapping("/reset/{code}")
     public ResponseEntity<?> getPasswordResetCode(@PathVariable String code) {
         User user = userService.findByPasswordResetCode(code);
@@ -106,13 +92,6 @@ public class AuthenticationRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    /**
-     * Reset user password.
-     * URL request {"/reset"}, method POST.
-     *
-     * @param passwordReset data transfer object with user email and password.
-     * @return ResponseEntity with HTTP response: status code, headers, and body.
-     */
     @PostMapping("/reset")
     public ResponseEntity<?> passwordReset(@RequestBody PasswordResetDto passwordReset) {
         Map<String, String> errors = new HashMap<>();
@@ -121,7 +100,7 @@ public class AuthenticationRestController {
                 !passwordReset.getPassword().equals(passwordReset.getPassword2());
 
         if (isConfirmEmpty) {
-            errors.put("password2Error", "Password confirmation cannot be empty");
+            errors.put("password2Error", "Không được để trống mật khẩu");
 
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
@@ -134,7 +113,7 @@ public class AuthenticationRestController {
 
         userService.passwordReset(passwordReset);
 
-        return new ResponseEntity<>("Password successfully changed!", HttpStatus.OK);
+        return new ResponseEntity<>("Đổi mật khẩu thành công", HttpStatus.OK);
     }
 
     @PostMapping("/logout")

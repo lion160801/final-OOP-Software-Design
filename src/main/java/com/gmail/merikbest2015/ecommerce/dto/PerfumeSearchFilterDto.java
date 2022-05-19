@@ -10,5 +10,5 @@ public class PerfumeSearchFilterDto {
     List<String> brands;
     List<String> genders;
     String perfumeGender;
-    String perfumer;
+    String brand;
 }

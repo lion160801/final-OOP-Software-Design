@@ -7,6 +7,7 @@ import {faCheckCircle, faShoppingBag} from "@fortawesome/free-solid-svg-icons";
 import {IMG_URL} from "../../utils/constants/url";
 import {fetchOrder, addOrder} from "../../actions/order-actions";
 import {validateEmail} from "../../utils/input-validators";
+import Spinner from "../../component/Spinner/Spinner";
 
 class Order extends Component {
     state = {
@@ -17,7 +18,8 @@ class Order extends Component {
         postIndex: "",
         phoneNumber: "",
         email: "",
-        validateEmailError: ""
+        validateEmailError: "",
+        loading:false
     };
 
     componentDidMount() {
@@ -41,6 +43,9 @@ class Order extends Component {
         } else {
             const order = {firstName, lastName, city, address, postIndex, phoneNumber, email, perfumeList, totalPrice};
 
+            this.setState({loading: true})
+
+
             this.props.addOrder(order, this.props.history);
         }
     };
@@ -62,88 +67,89 @@ class Order extends Component {
         perfumes.map((perfume) => totalPrice = totalPrice + perfume.price);
 
         return (
+
             <div className="container mt-5 pb-5">
                 <h4 className="mb-4 text-center">
-                    <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/> Ordering
+                    <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/> ĐẶT HÀNG
                 </h4>
                 <br/>
-                <form onSubmit={this.onFormSubmit}>
+                {this.state.loading?<Spinner/>:<form onSubmit={this.onFormSubmit}>
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">Name:</label>
-                                <div className="col-sm-8">
-                                    <input
-                                        type="text"
-                                        className={firstNameError ? "form-control is-invalid" : "form-control"}
-                                        name="firstName"
-                                        value={firstName}
-                                        placeholder="Enter the first name"
-                                        onChange={this.handleInputChange}/>
-                                    <div className="invalid-feedback">{firstNameError}</div>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">Surname:</label>
+                                <label className="col-sm-2 col-form-label">Họ:</label>
                                 <div className="col-sm-8">
                                     <input
                                         type="text"
                                         className={lastNameError ? "form-control is-invalid" : "form-control"}
                                         name="lastName"
                                         value={lastName}
-                                        placeholder="Enter the last name"
+                                        placeholder="Nhập họ của bạn"
                                         onChange={this.handleInputChange}/>
                                     <div className="invalid-feedback">{lastNameError}</div>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">City:</label>
+                                <label className="col-sm-2 col-form-label">Tên:</label>
+                                <div className="col-sm-8">
+                                    <input
+                                        type="text"
+                                        className={firstNameError ? "form-control is-invalid" : "form-control"}
+                                        name="firstName"
+                                        value={firstName}
+                                        placeholder="Nhập tên của bạn"
+                                        onChange={this.handleInputChange}/>
+                                    <div className="invalid-feedback">{firstNameError}</div>
+                                </div>
+                            </div>
+                            <div className="form-group row">
+                                <label className="col-sm-2 col-form-label">Thành phố:</label>
                                 <div className="col-sm-8">
                                     <input
                                         type="text"
                                         className={cityError ? "form-control is-invalid" : "form-control"}
                                         name="city"
                                         value={city}
-                                        placeholder="Enter the city"
+                                        placeholder="Thành phố"
                                         onChange={this.handleInputChange}/>
                                     <div className="invalid-feedback">{cityError}</div>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">Address:</label>
+                                <label className="col-sm-2 col-form-label">Địa chỉ:</label>
                                 <div className="col-sm-8">
                                     <input
                                         type="text"
                                         className={addressError ? "form-control is-invalid" : "form-control"}
                                         name="address"
                                         value={address}
-                                        placeholder="Enter the address"
+                                        placeholder="Địa chỉ"
                                         onChange={this.handleInputChange}/>
                                     <div className="invalid-feedback">{addressError}</div>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">Index:</label>
+                                <label className="col-sm-2 col-form-label">Số nhà:</label>
                                 <div className="col-sm-8">
                                     <input
                                         type="text"
                                         className={postIndexError ? "form-control is-invalid" : "form-control"}
                                         name="postIndex"
                                         value={postIndex}
-                                        placeholder="Enter the index"
+                                        placeholder="Số nhà"
                                         onChange={this.handleInputChange}/>
                                     <div className="invalid-feedback">{postIndexError}</div>
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">Mobile:</label>
+                                <label className="col-sm-2 col-form-label">Số điện thoại:</label>
                                 <div className="col-sm-8">
                                     <input
                                         type="text"
                                         className={phoneNumberError ? "form-control is-invalid" : "form-control"}
                                         name="phoneNumber"
                                         value={phoneNumber}
-                                        placeholder="(___)-___-____"
+                                        placeholder="(0xxxxxxxxx)"
                                         onChange={this.handleInputChange}/>
                                     <div className="invalid-feedback">{phoneNumberError}</div>
                                 </div>
@@ -183,14 +189,16 @@ class Order extends Component {
                                 </div>
                             </div>
                             <button type="submit" className="btn btn-primary btn-lg btn-success px-5 float-right">
-                                <FontAwesomeIcon icon={faCheckCircle}/> Validate order
+                                <FontAwesomeIcon icon={faCheckCircle}/> Xác nhận
                             </button>
                             <div className="row">
-                                <h4>To pay : $ <span>{totalPrice}</span>.00</h4>
+                                <h4>Tổng : $ <span>{totalPrice}</span>.00</h4>
                             </div>
                         </div>
                     </div>
-                </form>
+                </form>}
+
+
             </div>
         );
     }

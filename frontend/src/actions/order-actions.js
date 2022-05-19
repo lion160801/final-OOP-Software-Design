@@ -5,11 +5,12 @@ import {
     ORDER_ADDED_SUCCESS,
     ORDER_ADDED_FAILURE,
     ORDER_CONFIRMED_SUCCESS,
-    FETCH_USER_ORDERS_SUCCESS
+    FETCH_USER_ORDERS_SUCCESS, LOADING_CART
 } from "../utils/constants/actions-types";
 import {API_BASE_URL} from "../utils/constants/url";
 
 export const fetchOrder = () => async (dispatch) => {
+
     const response = await axios({
         method: "GET",
         url: API_BASE_URL + "/order",

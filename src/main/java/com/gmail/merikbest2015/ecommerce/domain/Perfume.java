@@ -26,8 +26,6 @@ public class Perfume {
     @Length(max = 255)
     private String perfumeTitle;
 
-    @NotBlank(message = "Fill in the input field")
-    @Length(max = 255)
     private String perfumer;
 
     @NotNull(message = "Fill in the input field")
@@ -68,7 +66,7 @@ public class Perfume {
     @Length(max = 255)
     private String type;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Review> reviews;
 
     @ManyToOne(fetch = FetchType.EAGER)

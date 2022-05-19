@@ -6,6 +6,7 @@ import cartReducer from "../reducers/cart-reducer";
 import adminReducer from "../reducers/admin-reducer";
 import orderReducer from "../reducers/order-reducer";
 import userReducer from "../reducers/user-reducer";
+import brandReducer from "../reducers/brand-reducer";
 
 const rootReducer = combineReducers({
     perfume: perfumeReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     admin: adminReducer,
     order: orderReducer,
-    user: userReducer
+    user: userReducer,
+    brand: brandReducer
 });
 
 export default rootReducer;

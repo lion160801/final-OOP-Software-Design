@@ -27,15 +27,14 @@ export const fetchPerfume = (id) => async (dispatch) => {
     })
 };
 
-export const fetchBrands = async (dispatch) =>{
+export const fetchBrands = () => async (dispatch) => {
     const response = await axios.get(API_BASE_URL + "/brands");
 
     dispatch({
         type: FETCH_BRANDS,
         payload: response.data
     })
-
-}
+};
 
 export const fetchPerfumesByGender = (gender) => async (dispatch) => {
     const response = await axios.post(API_BASE_URL + "/menu/gender", gender);
@@ -46,8 +45,8 @@ export const fetchPerfumesByGender = (gender) => async (dispatch) => {
     })
 };
 
-export const fetchPerfumesByPerfumer = (perfumer) => async (dispatch) => {
-    const response = await axios.post(API_BASE_URL + "/menu/perfumer", perfumer);
+export const fetchPerfumesByPerfumer = (brand) => async (dispatch) => {
+    const response = await axios.post(API_BASE_URL + "/menu/brand", brand);
 
     dispatch({
         type: FETCH_PERFUMES_BY_PERFUMER,

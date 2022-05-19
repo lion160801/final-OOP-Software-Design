@@ -5,12 +5,19 @@ import {faEdit, faUserEdit} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import AccountNavbar from "../../component/AccountNavbar/AccountNavbar";
-import {fetchUser} from "../../actions/admin-actions";
+import {fetchUser, updateUser} from "../../actions/admin-actions";
 
 class EditUser extends Component {
     state = {
+        id:"",
         username: "",
-        roles: ""
+        roles: "",
+        email: "",
+        password: "",
+        active: "",
+        perfumeList: [],
+        activationCode:"",
+        passwordResetCode:""
     };
 
     componentDidMount() {
@@ -26,7 +33,29 @@ class EditUser extends Component {
     onFormSubmit = (event) => {
         event.preventDefault();
 
-        // TODO add method to AdminRestController
+        const user = this.state;
+        const bodyFormData = new FormData();
+        bodyFormData.append("id", user.id);
+        bodyFormData.append("username", user.username);
+        bodyFormData.append("roles", user.roles);
+        bodyFormData.append("email", user.email);
+        bodyFormData.append("password", user.password);
+        bodyFormData.append("active", user.active);
+        bodyFormData.append("perfumeList", user.perfumeList);
+        bodyFormData.append("activationCode", user.activationCode);
+        bodyFormData.append("passwordResetCode", user.passwordResetCode);
+
+        this.props.updateUser(bodyFormData)
+            .then(() => {
+                if (this.props.success) {
+                    this.setState({
+                        ...this.initialState,
+                        showToast: true
+                    });
+                    setTimeout(() => this.setState({showToast: false}), 5000);
+                    window.scrollTo(0, 0);
+                }
+            });
     }
 
     handleInputChange = (event) => {
@@ -44,10 +73,10 @@ class EditUser extends Component {
             <div>
                 <AccountNavbar/>
                 <div className="container mt-5">
-                    <h4><FontAwesomeIcon className="mr-2" icon={faUserEdit}/> User: {username}</h4>
+                    <h4><FontAwesomeIcon className="mr-2" icon={faUserEdit}/> Người dùng: {username}</h4>
                     <form onSubmit={this.onFormSubmit}>
                         <div className="form-group row mt-5">
-                            <label className="col-sm-2 col-form-label">User name: </label>
+                            <label className="col-sm-2 col-form-label">Tên người dùng: </label>
                             <div className="col-sm-4">
                                 <input
                                     type="text"
@@ -58,7 +87,7 @@ class EditUser extends Component {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">Role: </label>
+                            <label className="col-sm-2 col-form-label">Vai trò: </label>
                             <div className="col-sm-6">
                                 <div className="form-check form-check-inline">
                                     <label className="form-check-label mr-1" htmlFor="inlineRadio1">USER</label>
@@ -94,11 +123,14 @@ class EditUser extends Component {
 
 EditUser.propTypes = {
     fetchUser: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    updateUser: PropTypes.func.isRequired,
+    success: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-    user: state.admin.user
+    user: state.admin.user,
+    success: state.admin.success,
 });
 
-export default connect(mapStateToProps, {fetchUser})(EditUser);
+export default connect(mapStateToProps, {fetchUser, updateUser})(EditUser);

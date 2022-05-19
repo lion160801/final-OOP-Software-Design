@@ -34,26 +34,28 @@ public class MenuRestController {
 
     @PostMapping("/menu/search")
     public ResponseEntity<?> findProductsByFilterParams(@RequestBody PerfumeSearchFilterDto filterDto) {
+
+        filterDto.setGenders(filterDto.getGenders().stream().map(g->g.toLowerCase()).collect(Collectors.toList()));
         List<String> brands = filterDto.getBrands()!=null?filterDto.getBrands(): Collections.emptyList();
         List<String> genders = filterDto.getGenders()!=null?filterDto.getGenders(): Collections.emptyList();
         List<Integer> prices = filterDto.getPrices()!=null?filterDto.getPrices(): Collections.emptyList();
-        List<Perfume> filter = perfumeService.filter(brands, genders, prices);
 
-        List<PerfumeDto> perfumes = filter.stream().map(p -> mapper.perfumeToPerFumeDto(p)).collect(Collectors.toList());
+        List<PerfumeDto> perfumes = perfumeService.filter(brands, genders, prices).stream().map(p -> mapper.perfumeToPerFumeDto(p)).collect(Collectors.toList());
         return new ResponseEntity<>(perfumes, HttpStatus.OK);
     }
 
     @PostMapping("/menu/gender")
     public ResponseEntity<?> findByPerfumeGender(@RequestBody PerfumeSearchFilterDto filterDto) {
-        List<Perfume> gender = perfumeService.findByPerfumeGenderOrderByPriceDesc(filterDto.getPerfumeGender());
-
-        return new ResponseEntity<>(gender, HttpStatus.OK);
+        String gender = filterDto.getPerfumeGender().toLowerCase();
+        List<PerfumeDto> perfumes = perfumeService.findByPerfumeGenderOrderByPriceDesc(gender).stream().map(p -> mapper.perfumeToPerFumeDto(p)).collect(Collectors.toList());
+        return new ResponseEntity<>(perfumes, HttpStatus.OK);
     }
 
-    @PostMapping("/menu/perfumer")
+    @PostMapping("/menu/brand")
     public ResponseEntity<?> findByPerfumer(@RequestBody PerfumeSearchFilterDto filterDto) {
-        List<Perfume> perfumer = perfumeService.findByPerfumerOrderByPriceDesc(filterDto.getPerfumer());
-
-        return new ResponseEntity<>(perfumer, HttpStatus.OK);
+        String brand = filterDto.getBrand();
+        List<PerfumeDto> perfumes = perfumeService.findByBrand_NameOrderByPriceDesc(brand).stream().map(p -> mapper.perfumeToPerFumeDto(p)).collect(Collectors.toList());
+        return new ResponseEntity<>(perfumes, HttpStatus.OK);
     }
+
 }

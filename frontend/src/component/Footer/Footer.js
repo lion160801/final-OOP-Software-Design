@@ -8,13 +8,13 @@ const Footer = () => {
             <div className="container">
                 <div className="d-flex justify-content-between">
                     <div className="footer-left">
-                        <h3>Perfume</h3>
-                        <p>(066) 696-66-23</p>
+                        <h3>Perfume Shop</h3>
+                        <p>0843 017 796</p>
                         <br/>
-                        <p>from 08:00 to 20:00 without breaks and weekends</p>
+                        <p>Giờ làm việc: 8h - 20h (Chủ nhật nghỉ)</p>
                     </div>
                     <div className="footer-right">
-                        <h3>Social networks</h3>
+                        <h3>Mạng xã hội</h3>
                         <a href="https://www.linkedin.com/in/merikbest/">
                             <i className="fab fa-linkedin fa-2x mr-3" style={{color: "white"}}></i>
                         </a>
@@ -23,7 +23,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="mx-auto" style={{width: "200px"}}>
-                    <p>© Copy right merikbest</p>
+                    <p>© Copy right g2perfumeshop</p>
                 </div>
             </div>
         </footer>

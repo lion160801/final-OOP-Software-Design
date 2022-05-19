@@ -81,10 +81,10 @@ class Registration extends Component {
 
         return (
             <div className="container mt-5">
-                <h4><FontAwesomeIcon className="mr-2" icon={faUserPlus}/> SIGN UP</h4>
+                <h4><FontAwesomeIcon className="mr-2" icon={faUserPlus}/> ĐĂNG KÝ</h4>
                 <hr align="left" width="550"/>
                 {this.props.isRegistered ? <div className="alert alert-success col-6" role="alert">
-                    Activation code has been sent to your email!
+                    Mã xác nhận vừa được gửi đến email của bạn
                 </div> : null}
                 <form onSubmit={this.onClickSignUp}>
                     <div className="form-group row">
@@ -95,45 +95,49 @@ class Registration extends Component {
                                 type="email"
                                 name="email"
                                 value={email}
+                                placeholder="Nhập email"
                                 className={emailError || validateEmailError ? "form-control is-invalid" : "form-control"}
                                 onChange={this.handleInputChange}/>
                             <div className="invalid-feedback">{emailError || validateEmailError}</div>
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">User name: </label>
+                        <label className="col-sm-2 col-form-label">Tên người dùng: </label>
                         <FontAwesomeIcon style={{position: "relative", top: "8px"}} icon={faUser}/>
                         <div className="col-sm-4">
                             <input
                                 type="text"
                                 name="username"
                                 value={username}
+                                placeholder="Nhập tên"
                                 className={usernameError ? "form-control is-invalid" : "form-control"}
                                 onChange={this.handleInputChange}/>
                             <div className="invalid-feedback">{usernameError}</div>
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Password: </label>
+                        <label className="col-sm-2 col-form-label">Mật khẩu: </label>
                         <FontAwesomeIcon style={{position: "relative", top: "8px"}} icon={faLock}/>
                         <div className="col-sm-4">
                             <input
                                 type="password"
                                 name="password"
                                 value={password}
+                                placeholder="Nhập mật khẩu"
                                 className={passwordError || validatePasswordError ? "form-control is-invalid" : "form-control"}
                                 onChange={this.handleInputChange}/>
                             <div className="invalid-feedback">{passwordError || validatePasswordError}</div>
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Confirm password: </label>
+                        <label className="col-sm-2 col-form-label">Xác nhận mật khẩu: </label>
                         <FontAwesomeIcon style={{position: "relative", top: "8px"}} icon={faLock}/>
                         <div className="col-sm-4">
                             <input
                                 type="password"
                                 name="password2"
                                 value={password2}
+                                placeholder="Xác nhận mật khẩu"
                                 className={password2Error || validateRepeatPasswordError ? "form-control is-invalid" : "form-control"}
                                 onChange={this.handleInputChange}/>
                             <div className="invalid-feedback">{password2Error || validateRepeatPasswordError}</div>

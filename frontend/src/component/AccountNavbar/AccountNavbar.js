@@ -15,30 +15,30 @@ const AccountNavbar = () => {
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <Link to={"/admin/orders"} className="nav-link text-light mx-3">
-                                <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/>List of all orders</Link>
+                                <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/>Danh sách đơn hàng</Link>
                         </li>
                         <li className="nav-item">
                             <Link to={"/admin/users/all"} className="nav-link text-light mx-3">
-                                <FontAwesomeIcon className="mr-2" icon={faUsers}/>List of all users</Link>
+                                <FontAwesomeIcon className="mr-2" icon={faUsers}/>Danh sách người dùng</Link>
                         </li>
                         <li className="nav-item">
                             <Link to={"/admin/add"} className="nav-link text-light mx-3">
-                                <FontAwesomeIcon className="mr-2" icon={faPlusSquare}/>Add perfume</Link>
+                                <FontAwesomeIcon className="mr-2" icon={faPlusSquare}/>Thêm sản phẩm</Link>
                         </li>
                         <li className="nav-item">
                             <Link to={"/product/list/edit"} className="nav-link text-light mx-3">
-                                <FontAwesomeIcon className="mr-2" icon={faList}/>List of perfumes</Link>
+                                <FontAwesomeIcon className="mr-2" icon={faList}/>Danh sách sản phẩm</Link>
                         </li>
                     </ul>
                     :
                     <ul className="navbar-nav">
                         <li className="nav-item active">
                             <Link to={"/user/edit"} className="nav-link text-light mx-3">
-                                <FontAwesomeIcon className="mr-2" icon={faLock}/>Change password</Link>
+                                <FontAwesomeIcon className="mr-2" icon={faLock}/>Đổi mật khẩu</Link>
                         </li>
                         <li className="nav-item">
                             <Link to={"/user/orders"} className="nav-link text-light mx-3">
-                                <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/>List of orders</Link>
+                                <FontAwesomeIcon className="mr-2" icon={faShoppingBag}/>Danh sách đơn hàng</Link>
                         </li>
                     </ul>
                 }

@@ -3,6 +3,8 @@ package com.gmail.merikbest2015.ecommerce.controller;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.domain.User;
+import com.gmail.merikbest2015.ecommerce.dto.domaindto.OrderDto;
+import com.gmail.merikbest2015.ecommerce.dto.domaindto.PerfumeDto;
 import com.gmail.merikbest2015.ecommerce.dto.domaindto.UserDto;
 import com.gmail.merikbest2015.ecommerce.dto.mapper.Mapper;
 import com.gmail.merikbest2015.ecommerce.service.OrderService;
@@ -52,7 +54,7 @@ public class AdminRestController {
 
     @PostMapping("/admin/add")
     public ResponseEntity<?> addPerfume(
-            @Valid Perfume perfume,
+            @Valid PerfumeDto perfumeDto,
             BindingResult bindingResult,
             @RequestPart(name = "file", required = false) MultipartFile file
     ) throws IOException {
@@ -61,17 +63,19 @@ public class AdminRestController {
 
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
+            Perfume perfume = mapper.perfumeDtoToEntity(perfumeDto);
             saveFile(perfume, file);
 
             Perfume savedPerfume = perfumeService.save(perfume);
 
-            return new ResponseEntity<>(savedPerfume, HttpStatus.CREATED);
+            PerfumeDto addedPerfume = mapper.perfumeToPerFumeDto(savedPerfume);
+            return new ResponseEntity<>(addedPerfume, HttpStatus.CREATED);
         }
     }
 
     @PutMapping("/admin/edit")
     public ResponseEntity<?> updatePerfume(
-            @Valid Perfume perfume,
+            @Valid PerfumeDto perfumeDto,
             BindingResult bindingResult,
             @RequestPart(name = "file", required = false) MultipartFile file
     ) throws IOException {
@@ -80,9 +84,11 @@ public class AdminRestController {
 
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
-            saveFile(perfume, file);
-
-            perfumeService.saveProductInfoById(perfume.getPerfumeTitle(), perfume.getPerfumer(), perfume.getYear(),
+            Perfume perfume = mapper.perfumeDtoToEntity(perfumeDto);
+            if (file != null) {
+                saveFile(perfume, file);
+            }
+            perfumeService.saveProductInfoById(perfume.getPerfumeTitle(), perfume.getBrand(), perfume.getYear(),
                     perfume.getCountry(), perfume.getPerfumeGender(), perfume.getFragranceTopNotes(),
                     perfume.getFragranceMiddleNotes(), perfume.getFragranceBaseNotes(), perfume.getDescription(),
                     perfume.getFilename(), perfume.getPrice(), perfume.getVolume(), perfume.getType(), perfume.getId());
@@ -93,14 +99,13 @@ public class AdminRestController {
 
     @GetMapping("/admin/orders")
     public ResponseEntity<?> getAllOrders() {
-        List<Order> orders = orderService.findAll();
-
+        List<OrderDto> orders = orderService.findAll().stream().map(o->mapper.orderToOrderDto(o)).collect(Collectors.toList());
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/admin/user/{id}")
     public ResponseEntity<?> getUser(@PathVariable("id") Long userId) {
-        User user = userService.getOne(userId);
+        UserDto user = mapper.userToUserDto(userService.getOne(userId));
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -115,13 +120,24 @@ public class AdminRestController {
 
     @PutMapping("/admin/user/edit")
     public ResponseEntity<?> updateUser(
-            @RequestParam String username,
-            @RequestParam Map<String, String> form,
-            @RequestParam("userId") User user
+           @Valid UserDto userDto,
+           BindingResult bindingResult
+//            @RequestParam String username,
+//            @RequestParam Map<String, String> form,
+//            @RequestParam("userId") User user
     ) {
-        userService.userSave(username, form, user);
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+        } else {
+            User user = userService.getOne(userDto.getId());
+            user.setRoles(userDto.getRoles());
+            user.setUsername(userDto.getUsername());
+            userService.save(user);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     private void saveFile(Perfume perfume, @RequestParam("file") MultipartFile file) throws IOException {

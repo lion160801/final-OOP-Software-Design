@@ -52,7 +52,7 @@ public class RegistrationRestController {
         Map<String, String> errors = new HashMap<>();
 
         if (isConfirmEmpty) {
-            errors.put("password2Error", "Password confirmation cannot be empty");
+            errors.put("password2Error", "Không được để trống mật khẩu");
 
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
@@ -89,9 +89,9 @@ public class RegistrationRestController {
         boolean isActivated = userService.activateUser(code);
 
         if (isActivated) {
-            return new ResponseEntity<>("User successfully activated", HttpStatus.OK);
+            return new ResponseEntity<>("Kích hoạt người dùng thành công", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Activation code not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Không tìm thấy mã xác nhận", HttpStatus.NOT_FOUND);
         }
     }
 }

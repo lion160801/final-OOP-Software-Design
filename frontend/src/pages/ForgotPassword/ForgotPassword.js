@@ -47,9 +47,9 @@ class ForgotPassword extends Component {
 
         return (
             <div id="container" className="container mt-5">
-                <h4><FontAwesomeIcon className="mr-3" icon={faKey}/>FORGOT PASSWORD?</h4>
+                <h4><FontAwesomeIcon className="mr-3" icon={faKey}/>QUÊN MẬT KHẨU?</h4>
                 <hr align="left" width="550"/>
-                <p>Enter your email address that you used to create your account.</p>
+                <p>Vui lòng nhập email bạn đã sử dụng để đăng ký tài khoản</p>
                 {error ? <div className="alert alert-danger col-6" role="alert">{error}</div> : null}
                 {success ? <div className="alert alert-success col-6" role="alert">{success}</div> : null}
                 <form onSubmit={this.onClickSend}>
@@ -68,7 +68,7 @@ class ForgotPassword extends Component {
                     </div>
                     <div className="form-group row">
                         <button type="submit" className="btn btn-dark mx-3">
-                            <FontAwesomeIcon className="mr-3" icon={faPaperPlane}/>Send
+                            <FontAwesomeIcon className="mr-3" icon={faPaperPlane}/>Gửi
                         </button>
                     </div>
                 </form>

@@ -5,6 +5,7 @@ import com.gmail.merikbest2015.ecommerce.domain.Review;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,7 +26,7 @@ public class PerfumeDto {
     private Integer price;
     private String volume;
     private String type;
-    private List<Review> reviews;
+    private List<ReviewDto> reviews = new ArrayList<>();
 
     private String brandName;
     private Long brandId;

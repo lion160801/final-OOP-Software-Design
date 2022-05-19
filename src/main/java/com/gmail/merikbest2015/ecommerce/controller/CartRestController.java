@@ -49,13 +49,14 @@ public class CartRestController {
     }
 
     @PostMapping("/cart/remove")
-    public ResponseEntity<?> removeFromCart(@RequestBody Perfume perfume, @AuthenticationPrincipal User userSession) {
-        User user = userService.findByEmail(userSession.getEmail());
-        user.getPerfumeList().remove(perfume);
+    public ResponseEntity<?> removeFromCart(@RequestBody PerfumeDto perfume, @AuthenticationPrincipal User userSession) {
 
-        userService.save(user);
+//        UserDto userDto = mapper.userToUserDto(userSession);
+        userSession.getPerfumeList().remove(mapper.perfumeDtoToEntity(perfume));
+//        User user = mapper.userDtoToUser(userDto);
+        userService.save(userSession);
 
-        List<Perfume> perfumeList = user.getPerfumeList();
+        List<PerfumeDto> perfumeList = userSession.getPerfumeList().stream().map(p -> mapper.perfumeToPerFumeDto(p)).collect(Collectors.toList());
 
         return new ResponseEntity<>(perfumeList, HttpStatus.OK);
     }

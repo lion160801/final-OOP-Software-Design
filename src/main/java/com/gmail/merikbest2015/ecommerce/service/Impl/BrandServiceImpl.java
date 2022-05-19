@@ -23,6 +23,6 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> findAll() {
-        return brandRepository.findAll();
+        return brandRepository.findAllByOrderByNameAsc();
     }
 }

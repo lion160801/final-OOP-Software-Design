@@ -14,13 +14,12 @@ const OrdersTable = ({orders}) => {
                 <table className="table mt-4">
                     <thead>
                     <tr>
-                        <th scope="col">Order №</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Post index</th>
-                        <th scope="col">Goods</th>
-                        <th scope="col">Sum, $</th>
+                        <th scope="col">Ngày mua</th>
+                        <th scope="col">Khách hàng</th>
+                        <th scope="col">Địa chỉ</th>
+                        <th scope="col">Mã đơn hàng</th>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Tổng đơn</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -28,7 +27,6 @@ const OrdersTable = ({orders}) => {
                     {orders.map((order) => {
                         return (
                             <tr key={order.id}>
-                                <th>{order.id}</th>
                                 <th>{order.date}</th>
                                 <th>{order.firstName + " " + order.lastName}</th>
                                 <th>{order.city + " " + order.address}</th>
@@ -36,7 +34,7 @@ const OrdersTable = ({orders}) => {
                                 <th>
                                     {order.perfumeList.map((perfume) => {
                                         return (
-                                            <p key={perfume.id}>Id товара:
+                                            <p key={perfume.id}>Mã sản phẩm:
                                                 <Link to={`/product/${perfume.id}`}>{perfume.id}</Link>
                                             </p>
                                         )

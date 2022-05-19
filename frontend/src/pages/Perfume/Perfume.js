@@ -67,45 +67,45 @@ class Perfume extends Component {
                     <div className="col-md-7">
                         <h2>{perfume.perfumeTitle}</h2>
                         <h3>{brand}</h3>
-                        <p>Product code: <span>{perfume.id}</span></p>
+                        <p>Mã sản phẩm: <span>{perfume.id}</span></p>
                         <p style={{color: "#54C0A1"}}>In Stock</p>
                         <div className="row ml-1">
                             <h6 className="mr-5"><span>${perfume.price}</span>.00</h6>
                             <button type="submit"
                                     className="btn btn-success mx-3"
                                     onClick={this.addToCart}>
-                                <FontAwesomeIcon className="mr-2 fa-lg" icon={faCartPlus}/> ADD TO CART
+                                <FontAwesomeIcon className="mr-2 fa-lg" icon={faCartPlus}/> THÊM VÀO GIỎ
                             </button>
                         </div>
                         <br/>
                         <table className="table">
                             <tbody>
                             <tr>
-                                <td>Perfume title:</td>
+                                <td>Tên:</td>
                                 <td>{perfume.perfumeTitle}</td>
                             </tr>
                             <tr>
-                                <td>Brand:</td>
+                                <td>Thương hiệu:</td>
                                 <td>{brand}</td>
                             </tr>
                             <tr>
-                                <td>Perfume type:</td>
+                                <td>Loại:</td>
                                 <td>{perfume.type}</td>
                             </tr>
                             <tr>
-                                <td>Release year:</td>
+                                <td>Năm ra mắt:</td>
                                 <td>{perfume.year}</td>
                             </tr>
                             <tr>
-                                <td>Volume:</td>
+                                <td>Dung tích:</td>
                                 <td><span>{perfume.volume}</span> ml.</td>
                             </tr>
                             <tr>
-                                <td>Manufacturer country:</td>
+                                <td>Nước sản xuất:</td>
                                 <td>{perfume.country}</td>
                             </tr>
                             <tr>
-                                <td>Gender:</td>
+                                <td>Giới tính:</td>
                                 <td>{perfume.perfumeGender}</td>
                             </tr>
                             <tr>
@@ -125,8 +125,8 @@ class Perfume extends Component {
                     </div>
                 </div>
                 <div className="mt-5">
-                    <h3 className="text-center mb-5">REVIEWS</h3>
-                    {reviews.length === 0 ? <p className="text-center">There are no reviews for this perfume.</p> :
+                    <h3 className="text-center mb-5">ĐÁNH GIÁ</h3>
+                    {reviews.length === 0 ? <p className="text-center">Sản phẩm này không có đánh giá nào.</p> :
                         reviews.map((review) => {
                             return (
                                 <div key={review.id}>

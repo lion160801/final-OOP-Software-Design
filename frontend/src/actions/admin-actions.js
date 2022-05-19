@@ -7,7 +7,7 @@ import {
     PERFUME_UPDATED_FAILURE,
     FETCH_USER_SUCCESS,
     FETCH_ALL_USERS_SUCCESS,
-    FETCH_ALL_USERS_ORDERS_SUCCESS, FORM_RESET
+    FETCH_ALL_USERS_ORDERS_SUCCESS, FORM_RESET, USER_UPDATED_SUCCESS
 } from "../utils/constants/actions-types";
 import {API_BASE_URL} from "../utils/constants/url";
 
@@ -114,3 +114,22 @@ export const formReset = () => async (dispatch) => {
         type: FORM_RESET
     })
 };
+
+export const updateUser = (data) => async (dispatch) =>{
+
+    const response = await axios({
+        method:"PUT",
+        url: API_BASE_URL + "/admin/user/edit",
+        data: data,
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorization": localStorage.getItem("token")
+        }
+    });
+
+    dispatch({
+        type: USER_UPDATED_SUCCESS,
+        payload: response.data
+    })
+
+}

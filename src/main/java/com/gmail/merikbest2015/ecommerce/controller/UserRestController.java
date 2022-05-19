@@ -4,6 +4,8 @@ import com.gmail.merikbest2015.ecommerce.domain.Order;
 import com.gmail.merikbest2015.ecommerce.domain.Review;
 import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.dto.AuthenticationRequestDTO;
+import com.gmail.merikbest2015.ecommerce.dto.domaindto.OrderDto;
+import com.gmail.merikbest2015.ecommerce.dto.mapper.Mapper;
 import com.gmail.merikbest2015.ecommerce.service.OrderService;
 import com.gmail.merikbest2015.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -26,10 +29,13 @@ public class UserRestController {
 
     private final OrderService orderService;
 
+    Mapper mapper;
+
     @Autowired
-    public UserRestController(UserService userService, OrderService orderService) {
+    public UserRestController(UserService userService, OrderService orderService, Mapper mapper) {
         this.userService = userService;
         this.orderService = orderService;
+        this.mapper = mapper;
     }
 
     @GetMapping("/user/edit")
@@ -52,7 +58,7 @@ public class UserRestController {
     @GetMapping("/user/orders")
     public ResponseEntity<?> getAllUserOrders(@AuthenticationPrincipal User userSession) {
         User user = userService.findByEmail(userSession.getEmail());
-        List<Order> orders = orderService.findOrderByUser(user);
+        List<OrderDto> orders = orderService.findOrderByUser(user).stream().map(o->mapper.orderToOrderDto(o)).collect(Collectors.toList());
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.service.Impl;
 
+import com.gmail.merikbest2015.ecommerce.domain.Brand;
 import com.gmail.merikbest2015.ecommerce.domain.Perfume;
 import com.gmail.merikbest2015.ecommerce.repository.PerfumeRepository;
 import com.gmail.merikbest2015.ecommerce.service.PerfumeService;
@@ -56,8 +57,8 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public List<Perfume> findByPerfumerOrderByPriceDesc(String perfumer) {
-        return perfumeRepository.findByBrand_NameOrderByPriceDesc(perfumer);
+    public List<Perfume> findByBrand_NameOrderByPriceDesc(String brand) {
+        return perfumeRepository.findByBrand_NameOrderByPriceDesc(brand);
     }
 
     @Override
@@ -66,12 +67,12 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public void saveProductInfoById(String perfumeTitle, String perfumer, Integer year, String country,
+    public void saveProductInfoById(String perfumeTitle, Brand brand, Integer year, String country,
                                     String perfumeGender, String fragranceTopNotes, String fragranceMiddleNotes,
                                     String fragranceBaseNotes, String description, String filename,
                                     Integer price, String volume, String type, Long id
     ) {
-        perfumeRepository.saveProductInfoById(perfumeTitle, perfumer, year, country, perfumeGender, fragranceTopNotes,
+        perfumeRepository.saveProductInfoById(perfumeTitle, brand, year, country, perfumeGender, fragranceTopNotes,
                 fragranceMiddleNotes, fragranceBaseNotes, description, filename, price, volume, type, id);
     }
 

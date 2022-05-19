@@ -1,13 +1,10 @@
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {
-    fetchBrands,
     fetchPerfumes, fetchPerfumesByFilterParams,
     fetchPerfumesByGender,
     fetchPerfumesByPerfumer
 } from "../../actions/perfume-actions";
-
-const check = fetchBrands();
 
 const perfumer =  [
     {"name": "Burberry"},
@@ -37,12 +34,12 @@ const perfumer =  [
 ]
 
 const gender = [
-    {"name": "male", "label": "для женщин"},
-    {"name": "female", "label": "для мужчин"},
+    {"name": "Nam"},
+    {"name": "Nữ"},
 ]
 
 const price = [
-    {"id": 1, "name": "any", "array": []},
+    {"id": 1, "name": "Tất cả", "array": []},
     {"id": 2, "name": "15 - 25 $", "array": [15, 25]},
     {"id": 3, "name": "25 - 40 $", "array": [25, 40]},
     {"id": 4, "name": "40 - 90 $", "array": [40, 90]},

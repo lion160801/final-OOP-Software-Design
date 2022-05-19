@@ -32,7 +32,7 @@ class PerfumeCardsSlider extends Component {
                                             <h6>$<span>{perfume.price}</span>.00</h6>
                                             <Link to={`/product/${perfume.id}`}>
                                             <span className="btn btn-dark">
-                                                SHOW MORE
+                                                CHI TIẾT
                                             </span>
                                             </Link>
                                         </div>
@@ -53,7 +53,7 @@ class PerfumeCardsSlider extends Component {
         return (
             <div>
                 <div className="container text-center my-3">
-                    <h3>PERSONALLY RECOMMENDED</h3>
+                    <h3>ĐỀ XUẤT CHO BẠN</h3>
                 </div>
                 <div className="container mt-5" id="indicators">
                     <form method="get" action="/">

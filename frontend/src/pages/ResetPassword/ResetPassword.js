@@ -60,13 +60,13 @@ class ResetPassword extends Component {
 
         return (
             <div className="container mt-5">
-                <h4><FontAwesomeIcon className="mr-2" icon={faSync}/> RESET PASSWORD</h4>
+                <h4><FontAwesomeIcon className="mr-2" icon={faSync}/> ĐẶT LẠI MẬT KHẨU</h4>
                 <hr align="left" width="550"/>
                 {this.props.error ?
                     <div className="alert alert-danger col-6" role="alert">{this.props.error}</div> : null}
                 <form onSubmit={this.onClickReset}>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Password: </label>
+                        <label className="col-sm-2 col-form-label">Mật khẩu: </label>
                         <FontAwesomeIcon style={{position: "relative", top: "8px"}} icon={faLock}/>
                         <div className="col-sm-4">
                             <input
@@ -79,7 +79,7 @@ class ResetPassword extends Component {
                         </div>
                     </div>
                     <div className="form-group row">
-                        <label className="col-sm-2 col-form-label">Confirm password: </label>
+                        <label className="col-sm-2 col-form-label">Xác nhận mật khẩu: </label>
                         <FontAwesomeIcon style={{position: "relative", top: "8px"}} icon={faLock}/>
                         <div className="col-sm-4">
                             <input
